@@ -1,2 +1,2 @@
-# magic8ball
-Magic 8 Ball
+# Magic 8 Ball
+Web based Magic 8 Ball predictions.

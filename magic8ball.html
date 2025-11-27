@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" type="text/css"
+ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+<style type="text/css">
+body {
+  background: #e8e8d6;
+  color: #333;
+}
+#wrapper {
+  width: 600px;
+  margin: 80px auto;
+  text-align: center;
+}
+p, input, button {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+}
+#answerContainer {
+  opacity: 0;
+}
+p {
+  padding: 20px 0;
+}
+input {
+  width: 500px;
+  padding: 5px 15px;
+  background: #fff;
+  border: 2px solid #ddd;
+  outline: none;
+}
+input:focus {
+  border: 2px solid #888;
+}
+button {
+  background: #ffe;
+  color: #666;
+  border: 2px solid #666;
+  border-radius: 8px;
+  margin-left: 10px;
+  padding: 5px 15px;
+  outline: none;
+}
+button:hover {
+  background: #ffc;
+  color: #222;
+  border: 2px solid #222;
+  cursor: pointer;
+}
+</style>
+<script>
+window.onload = function () {
+  var answers = [
+    'Maybe.', 'Certainly not.', 'I hope so.', 'Not in your wildest dreams.',
+    'There is a good chance.', 'Quite likely.', 'I think so.', 'I hope not.',
+    'I would say so.', 'Never!', 'Fuhgeddaboudit.', 'Ahaha! Really?!?', 'Pfft.',
+    'Sorry, bucko.', 'Hell, yes.', 'Hell to the no.', 'The future is bleak.',
+    'The future is uncertain.', 'I would rather not say.', 'Who cares?',
+    'Possibly.', 'Never, ever, ever.', 'There is a small chance.', 'Yes!'];
+
+  var container = document.getElementById('answerContainer'),
+      opacityPercent,
+      previousAnswer;
+  function updateOpacity() {
+    opacityPercent += 1;
+    container.style.opacity = opacityPercent / 100;
+    if (opacityPercent < 100) {
+      window.requestAnimationFrame(updateOpacity);
+    }
+  }
+  function makeVisible() {
+    container.style.opacity = '0';
+    opacityPercent = -1;
+    updateOpacity();
+  }
+  opacityPercent = -1;
+  document.getElementById('questionArea').value = '';
+  document.getElementById('answerButton').onclick = function () {
+    while (true) {
+      var answer = answers[Math.floor(Math.random() * answers.length)];
+      if (answers.length == 1 || answer != previousAnswer) {
+        previousAnswer= answer;
+        break;
+      }
+    }
+    container.className = '';
+    container.innerHTML = answer;
+    makeVisible();
+  };
+};
+</script>
+</head>
+<body>
+<div id="wrapper">
+
+<p> What do you want to know? </p>
+
+<p>
+  <input id="questionArea" type="text" placeholder="enter a question"></input>
+</p>
+
+<p>
+  <button id="answerButton"> Make a prediction </button>
+</p>
+
+<p id="answerContainer"></p>
+
+</div>
+</body>
+</html>
